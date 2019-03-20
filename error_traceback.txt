@@ -1,0 +1,35 @@
+[2019-03-20 17:45:28]|ERROR|log.log_response:228|Internal Server Error: /imageclassifier/predict
+Traceback (most recent call last):
+    File "/usr/local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+      response = get_response(request)
+    File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+      response = self.process_exception_by_middleware(e, request)
+    File "/usr/local/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+      response = wrapped_callback(request, *callback_args, **callback_kwargs)
+    File "/usr/local/lib/python3.6/site-packages/django/views/decorators/csrf.py", line 54, in wrapped_view
+      return view_func(*args, **kwargs)
+    File "/usr/local/lib/python3.6/site-packages/django/views/generic/base.py", line 68, in view
+      return self.dispatch(request, *args, **kwargs)
+    File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 495, in dispatch
+      response = self.handle_exception(exc)
+    File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 455, in handle_exception
+       self.raise_uncaught_exception(exc)
+    File "/usr/local/lib/python3.6/site-packages/rest_framework/views.py", line 492, in dispatch
+      response = handler(request, *args, **kwargs)
+    File "server/apps/api/rest/views.py", line 18, in post
+      return Response(ProcessingImageClassifier(file).processing())
+    File "server/apps/api/serving/processing.py", line 84, in processing
+      pred = self.get_tf_serving_pred(payload)
+    File "server/apps/api/serving/processing.py", line 34, in get_tf_serving_pred
+      return r.json()
+    File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 889, in json
+      self.content.decode(encoding), **kwargs
+    File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+      return _default_decoder.decode(s)
+    File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+      obj, end = self.raw_decode(s)
+    File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+      return self.scan_once(s, idx=_w(s, idx).end())
+    simplejson.errors.JSONDecodeError: Invalid \X escape sequence '\\': line 1 column 62 (char 61)
+[pid: 19|app: 0|req: 2/4] 192.168.144.1 () {52 vars in 1286 bytes} [Wed Mar 20 17:45:28 2019] POST /imageclassifier/predic
+    => generated 27 bytes in 140 msecs (HTTP/1.1 500) 6 headers in 218 bytes (1 switches on core 0)
